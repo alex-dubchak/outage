@@ -2,6 +2,10 @@
 
 <head>
     <style>
+        :root {
+  --main-bg-img: url("GPV.png");
+  /*--main-bg-img: url("http://oblenergo.cv.ua/shutdowns/GPV.png?ver=1674136184029"); */
+}
         #content {
             width: 818px;
             height: 541px;
@@ -22,7 +26,7 @@
 
         #now-bar {
             width: 35px;
-            height: 577px;
+            height: 545px;
             position: absolute;
             border: 3px solid black;
             box-sizing: border-box;
@@ -44,16 +48,17 @@
 
         td{
             padding: 0px;
+            vertical-align: top;
         }
 
         .group{
-            height: 34px;
-            width: 34px;
+            height: 30px;
+            width: 30px;
             display: block;
             box-sizing: border-box;
             border: 1px solid pink;
             text-align: center;
-            line-height: 34px;
+            line-height: 30px;
             text-decoration: none;
         }
     </style>
@@ -64,7 +69,7 @@
             var startPosTop = $("#content").offset().left;
             return {
                 left: startPosLeft + 1 + hour * 34,
-                top: startPosTop -1
+                top: startPosTop +1 
             }
         }
 
@@ -101,6 +106,8 @@
                 <a href="javascript:void(0)" id="g14" class="group">14</a>
                 <a href="javascript:void(0)" id="g15" class="group">15</a>
                 <a href="javascript:void(0)" id="g16" class="group">16</a>
+                <a href="javascript:void(0)" id="g17" class="group">17</a>
+                <a href="javascript:void(0)" id="g18" class="group">18</a>
             </td>
             <td>
                 <div id="content">
