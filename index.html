@@ -1,0 +1,116 @@
+<html>
+
+<head>
+    <style>
+        #content {
+            width: 818px;
+            height: 541px;
+            background-image: url("GPV.png");
+            border: 1px solid green;
+            box-sizing: border-box;
+            background-position: -200px -136px ;
+        }
+
+         #header {
+            width: 818px;
+            height: 34px;
+            background-image: url("GPV.png");
+            border: 1px solid blue;
+            box-sizing: border-box;
+            background-position: -200px -101px ;
+        }
+
+        #now-bar {
+            width: 35px;
+            height: 577px;
+            position: absolute;
+            border: 3px solid black;
+            box-sizing: border-box;
+        }
+
+        #group-bar {
+            width: 818px;
+            height: 35px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            border: 3px solid black;
+            box-sizing: border-box;
+        }
+        table{
+            border-collapse: collapse;
+            border: 0px;
+        }
+
+        td{
+            padding: 0px;
+        }
+
+        .group{
+            height: 34px;
+            width: 34px;
+            display: block;
+            box-sizing: border-box;
+            border: 1px solid pink;
+            text-align: center;
+            line-height: 34px;
+            text-decoration: none;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script>
+        function getNowBarPosition(hour) {
+            var startPosLeft = $("#content").offset().left;
+            var startPosTop = $("#content").offset().left;
+            return {
+                left: startPosLeft + 1 + hour * 34,
+                top: startPosTop -1
+            }
+        }
+
+        $(function () {
+            const now = new Date();
+            const hour = now.getHours();
+            $("#now-bar").css(getNowBarPosition(hour));
+        });
+    </script>
+</head>
+
+<body id="h18">
+    <div id="now-bar"></div>
+    <table>
+        <tr>
+            <td></td>
+            <td><div id="header"></div></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="javascript:void(0)" id="g1" class="group">1</a>
+                <a href="javascript:void(0)" id="g2" class="group">2</a>
+                <a href="javascript:void(0)" id="g3" class="group">3</a>
+                <a href="javascript:void(0)" id="g4" class="group">4</a>
+                <a href="javascript:void(0)" id="g5" class="group">5</a>
+                <a href="javascript:void(0)" id="g6" class="group">6</a>
+                <a href="javascript:void(0)" id="g7" class="group">7</a>
+                <a href="javascript:void(0)" id="g8" class="group">8</a>
+                <a href="javascript:void(0)" id="g9" class="group">9</a>
+                <a href="javascript:void(0)" id="g10" class="group">10</a>
+                <a href="javascript:void(0)" id="g11" class="group">11</a>
+                <a href="javascript:void(0)" id="g12" class="group">12</a>
+                <a href="javascript:void(0)" id="g13" class="group">13</a>
+                <a href="javascript:void(0)" id="g14" class="group">14</a>
+                <a href="javascript:void(0)" id="g15" class="group">15</a>
+                <a href="javascript:void(0)" id="g16" class="group">16</a>
+            </td>
+            <td>
+                <div id="content">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+    
+    
+</body>
+
+</html>
