@@ -3,25 +3,26 @@
 <head>
     <style>
         :root {
-  --main-bg-img: url("GPV.png");
-  /*--main-bg-img: url("http://oblenergo.cv.ua/shutdowns/GPV.png?ver=1674136184029"); */
-}
+            --main-bg-img: url("GPV.png");
+            /*--main-bg-img: url("http://oblenergo.cv.ua/shutdowns/GPV.png?ver=1674136184029"); */
+        }
+
         #content {
             width: 818px;
             height: 541px;
             background-image: url("GPV.png");
             border: 1px solid green;
             box-sizing: border-box;
-            background-position: -200px -136px ;
+            background-position: -200px -136px;
         }
 
-         #header {
+        #header {
             width: 818px;
             height: 34px;
             background-image: url("GPV.png");
             border: 1px solid blue;
             box-sizing: border-box;
-            background-position: -200px -101px ;
+            background-position: -200px -101px;
         }
 
         #now-bar {
@@ -40,18 +41,20 @@
             left: 0px;
             border: 3px solid black;
             box-sizing: border-box;
+            display: none;
         }
-        table{
+
+        table {
             border-collapse: collapse;
             border: 0px;
         }
 
-        td{
+        td {
             padding: 0px;
             vertical-align: top;
         }
 
-        .group{
+        .group {
             height: 30px;
             width: 30px;
             display: block;
@@ -61,32 +64,95 @@
             line-height: 30px;
             text-decoration: none;
         }
+
+        #details {
+            visibility: hidden;
+        }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="jquery-3.6.3.min.js"></script>
     <script>
         function getNowBarPosition(hour) {
-            var startPosLeft = $("#content").offset().left;
-            var startPosTop = $("#content").offset().left;
+            var startPos = $("#content").offset();
             return {
-                left: startPosLeft + 1 + hour * 34,
-                top: startPosTop +1 
+                left: startPos.left + 1 + hour * 34,
+                top: startPos.top - 2
             }
+        }
+
+        function getGroupBarPosition(group) {
+            var startPos = $("#content").offset();
+            return {
+                left: startPos.left,
+                top: startPos.top + (group - 1) * 30 - 2
+            }
+        }
+
+        function getGroupId() {
+            if (window.groupId) return window.groupId;
+
+            var groupId = document.cookie.split(';').find((row) => row.startsWith("groupId"))?.split('=')[1];
+            if (groupId) {
+                window.groupId = groupId;
+            }
+            return groupId;
+        }
+
+        function setGroupId(groupId) {
+            document.cookie = 'groupId=' + groupId + ';';
+            window.groupId = groupId;
+        }
+
+        function loadGroupBar() {
+            var groupId = getGroupId();
+            if (!groupId) {
+                $("#details").css({
+                    visibility: 'hidden'
+                });
+                $("#group-bar").hide();
+                return;
+            }
+            $("#groupName").text(groupId);
+            $("#details").css({
+                visibility: 'visible'
+            });
+            $("#group-bar").css(getGroupBarPosition(groupId)).show();
+
         }
 
         $(function () {
             const now = new Date();
             const hour = now.getHours();
             $("#now-bar").css(getNowBarPosition(hour));
+
+            loadGroupBar();
+
+            $(".group").click(function (e) {
+                var groupId = +e.currentTarget.id.replace('g', '');
+                setGroupId(groupId);
+                loadGroupBar();
+            })
+
+            $("#clear-group").click(function () {
+                window.groupId = null;
+                document.cookie = 'groupId=';
+                loadGroupBar();
+            });
         });
     </script>
 </head>
 
 <body id="h18">
     <div id="now-bar"></div>
+    <div id="group-bar"></div>
+    <div id="details">
+        Група: <span id="groupName"></span><a href="javascript:void(0)" id="clear-group">clear</a>
+    </div>
     <table>
         <tr>
             <td></td>
-            <td><div id="header"></div></td>
+            <td>
+                <div id="header"></div>
+            </td>
         </tr>
         <tr>
             <td>
@@ -116,8 +182,8 @@
             </td>
         </tr>
     </table>
-    
-    
+
+
 </body>
 
 </html>
